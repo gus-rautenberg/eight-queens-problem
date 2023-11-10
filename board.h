@@ -12,6 +12,7 @@ public:
     void printBoard() const;
     int calculateCost() const;
     void initialRandomBoard();
+    Board(const Board &board);
 
 private:
     int size;

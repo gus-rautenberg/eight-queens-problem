@@ -59,3 +59,9 @@ void Board::initialRandomBoard() {
         posY[i] = indices[i];
     }
 }
+
+Board::Board(const Board &board) {
+    size = board.size;
+    posX = board.posX;
+    posY = board.posY;
+}
