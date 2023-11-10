@@ -40,13 +40,22 @@ int Board::calculateCost() const {
 }
 
 void Board::initialRandomBoard() {
+    vector<int> indices(size);
     for (int i = 0; i < size; ++i) {
-        posX[i] = i;
-        posY[i] = i;
+        indices[i] = i;
     }
 
-    // Embaralha aleatoriamente os vetores
-    random_shuffle(posX.begin(), posX.end());
-    random_shuffle(posY.begin(), posY.end());
-}
+    // Embaralha aleatoriamente os índices
+    random_shuffle(indices.begin(), indices.end());
 
+    for (int i = 0; i < size; ++i) {
+        posX[i] = indices[i];
+    }
+
+    // Embaralha aleatoriamente os índices novamente
+    random_shuffle(indices.begin(), indices.end());
+
+    for (int i = 0; i < size; ++i) {
+        posY[i] = indices[i];
+    }
+}
