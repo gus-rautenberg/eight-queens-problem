@@ -65,3 +65,33 @@ Board::Board(const Board &board) {
     posX = board.posX;
     posY = board.posY;
 }
+
+
+void Board::randomMove() {
+    int randomQueen = rand() % size;
+    int randomPositionX = rand() % size;
+    int randomPositionY = rand() % size;
+
+    
+    while (!isPositionFree(randomPositionX, randomPositionY)) {
+        randomPositionX = rand() % size;
+        randomPositionY = rand() % size;
+    }
+
+    moveQueen(randomQueen, randomPositionX, randomPositionY);
+}
+
+bool Board::isPositionFree(int x, int y) const {
+    // Verifica se a posição está livre
+    for (int i = 0; i < size; ++i) {
+        if (posX[i] == x && posY[i] == y) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void Board::moveQueen(int queenIndex, int newPositionX, int newPositionY) {
+    posX[queenIndex] = newPositionX;
+    posY[queenIndex] = newPositionY;
+}
