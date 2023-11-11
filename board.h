@@ -15,7 +15,12 @@ public:
     Board(const Board &board);
     void randomMove();
     bool isPositionFree(int x, int y) const;
-    
+    vector<int> getVectorX() const;
+    vector<int> getVectorY() const;
+    void copyBoard(const Board &source);
+    void setVectorX(const vector<int>& newVectorX);
+    void setVectorY(const vector<int>& newVectorY);
+
 
 
 private:
