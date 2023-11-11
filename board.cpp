@@ -14,26 +14,36 @@ Board::Board() {
     posY.resize(size, 0);
 }
 
-void Board::printBoard() const {
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            if (posX[i] == j) {
+void Board::printBoard() const{
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            bool temRainha = false;
+
+            for (int k = 0; k < 8; k++) {
+                if (posX[k] == i && posY[k] == j) {
+                    temRainha = true;
+                    break;
+                }
+            }
+            if (temRainha) {
                 cout << "Q ";
             } else {
                 cout << ". ";
             }
         }
+
         cout << "\n";
     }
-    cout << "\n";
 }
+
+
 
 int Board::calculateCost() const {
     int cost = 0;
     for (int i = 0; i < size; i++) {
         for (int j = i + 1; j < size; j++) {
-            if (posX[i] == posX[j] || abs(posX[i] - posX[j]) == abs(posY[i] - posY[j])|| abs(posX[i] - posX[j]) == abs(posY[j] - posY[i]) ) {
-                ++cost;
+            if (posX[i] == posX[j] || posY[i] == posY[j] || abs(posX[i] - posX[j]) == abs(posY[i] - posY[j])) {
+                cost++;                                     
             }
         }
     }
@@ -41,7 +51,10 @@ int Board::calculateCost() const {
 }
 
 
+
+
 void Board::initialRandomBoard() {
+
     vector<int> indices(size);
     for (int i = 0; i < size; i++) {
         indices[i] = i;
