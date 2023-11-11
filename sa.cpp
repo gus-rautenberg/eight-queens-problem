@@ -10,7 +10,7 @@
 #include <vector>
 
 using namespace std;
-Sa::Sa(){}
+Sa::Sa(double initialTemperature, double coolingRate) : temperature(initialTemperature), cooling(coolingRate) {}
 
 void Sa::swapBoard(Board& auxBoard, int neighborX,int  newNeighborX, int neighborY, int newNeighborY){
     vector<int> vectorX = auxBoard.getVectorX();
@@ -95,3 +95,7 @@ void Sa::mainSa(Board board, Board auxBoard, int t){
     }
 }
 
+void Sa::getInfo(){
+    cout << this->temperature << endl;
+    cout << this->cooling << endl;
+}
