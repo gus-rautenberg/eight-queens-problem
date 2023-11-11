@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cmath>
 #include <cstdlib>
-
+//a
 using namespace std;
 
 Board::Board() {
