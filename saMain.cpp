@@ -17,5 +17,8 @@ mt19937 g(rd());
  Board board, auxBoard;
  sa.mainSa(board, auxBoard, sa.temperature);
 
+
+
+
     return 0;
 }
