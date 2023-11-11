@@ -54,22 +54,24 @@ void Sa::mainSa(Board board, Board auxBoard, int t){
     while(t > 0){
         //cout << "temperatura: " << t << endl;
         t *= cooling;
+        cout << "Aux" << endl;
         board.copyBoard(auxBoard);
-        cout << "Pos copia" << endl;
-        cout <<"Custo board : " << board.calculateCost() << endl;
+        //cout << "Pos copia" << endl;
+        //cout <<"Custo board : " << board.calculateCost() << endl;
         cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
+        auxBoard.printBoard();
         drawNeighbor(auxBoard);
-        cout << "Pos drawNeighbor" << endl;
-        cout <<"Custo board : " << board.calculateCost() << endl;
-        cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
+        //cout << "Pos drawNeighbor" << endl;
+        //cout <<"Custo board : " << board.calculateCost() << endl;
+        //cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
         delta = auxBoard.calculateCost() - boardCost;
-        cout << "delta: " << delta << endl;
+        //cout << "delta: " << delta << endl;
         if(delta < 0){
             cout << "Entrou no if delta < 0" << endl;
             board.copyBoard(auxBoard);
             boardCost = board.calculateCost();
             cout <<"Custo board : " << boardCost<< endl;
-            cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
+            //cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
         }
         else{
             double prob = exp(-delta/t);
@@ -78,12 +80,15 @@ void Sa::mainSa(Board board, Board auxBoard, int t){
                 auxBoard.copyBoard(board);
                 boardCost = board.calculateCost();
                 cout <<"Custo board : " << boardCost << endl;
-                cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
+                //cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
             }
         }
        
         if(board.calculateCost() == 0){
+        //    cout << "Board principal :" << endl;
            board.printBoard();
+        //    cout << "Board auxiliar :" << endl;
+        //    auxBoard.printBoard();
 
             break;
         }
