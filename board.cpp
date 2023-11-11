@@ -4,6 +4,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <algorithm>
+
 #include <unordered_set>
 
 using namespace std;
@@ -13,6 +14,7 @@ Board::Board() {
     posX.resize(size, 0);
     posY.resize(size, 0);
 }
+
 
 void Board::printBoard() const{
     for (int i = 0; i < 8; i++) {
@@ -26,6 +28,7 @@ void Board::printBoard() const{
                 }
             }
             if (temRainha) {
+
                 cout << "Q ";
             } else {
                 cout << ". ";
@@ -43,13 +46,14 @@ int Board::calculateCost() const {
     for (int i = 0; i < size; i++) {
         for (int j = i + 1; j < size; j++) {
             if (posX[i] == posX[j] || posY[i] == posY[j] || abs(posX[i] - posX[j]) == abs(posY[i] - posY[j])) {
+
                 cost++;                                     
+
             }
         }
     }
     return cost;
 }
-
 
 
 
@@ -74,6 +78,7 @@ void Board::initialRandomBoard() {
         posY[i] = indices[i];
     }
 }
+
 
 // Função para obter o vetor posX
 vector<int> Board::getVectorX() const{
@@ -102,7 +107,6 @@ void Board::copyBoard(const Board &source) {
     posX = source.posX;
     posY = source.posY;
 }
-
 
 Board::Board(const Board &board) {
     size = board.size;
@@ -138,4 +142,5 @@ bool Board::isPositionFree(int x, int y) const {
 void Board::moveQueen(int queenIndex, int newPositionX, int newPositionY) {
     posX[queenIndex] = newPositionX;
     posY[queenIndex] = newPositionY;
+
 }

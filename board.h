@@ -22,6 +22,7 @@ public:
     void setVectorY(const vector<int>& newVectorY);
 
 
+
 private:
     int size;
     vector<int> posX; // Vetor para armazenar as posições X das rainhas
