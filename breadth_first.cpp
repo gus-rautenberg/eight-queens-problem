@@ -9,15 +9,22 @@ using namespace std;
 sem_t semaphore;
 
 void first_breadth() {
-    Board board[8];
+    Board board;
     pthread_t new_thread[8];
 
     sem_init(&semaphore, 0, 1);
 
     for (int i = 0; i < 8; i++)
     {
-        board[i].initialRandomBoard();
-        pthread_create(&new_thread[i], NULL, breath_first, &board[i]);
+        board.placeQueen(0, i, 0);
+
+        pthread_create(&new_thread[i], NULL, breath_first, &board);
+
+        sem_wait(&semaphore);
+        cout << i << " " << board.getQueensQuantity() << endl;
+        board.printBoard();
+        cout << endl;
+        sem_post(&semaphore);
     }
     
     for (int i = 0; i < 8; i++)
@@ -36,22 +43,36 @@ void first_breadth() {
 
 void* breath_first(void* arg) {
     
-    Board* board = static_cast<Board*>(arg);
-    
-    if ()
-    {
-        /* code */
-    }
-    
+    // Board* board = static_cast<Board*>(arg);
+    // int queenQuantity;
 
-    for (int i = 0; i < 8; i++)
-    {
-        
-    }
+    // queenQuantity = board->getQueensQuantity();
     
-    sem_wait(&semaphore);
-    board->printBoard();
-    cout << endl;
-    sem_post(&semaphore);
+    // if (queenQuantity >= 8)
+    // {
+    //     sem_wait(&semaphore);
+    //     board->printBoard();
+    //     cout << endl;
+    //     sem_post(&semaphore);
+    //     return NULL;
+    // }
+    
+    // Board newBoard[8];
+    
+    // for (int i = 0; i < 8; i++)
+    // {
+    //     newBoard->copyBoard(*board);
+    //     newBoard[i].placeQueen(queenQuantity, i, queenQuantity);
+    //     // if (newBoard->calculateCost() > 0)
+    //     // {
+    //     sem_wait(&semaphore);
+    //     cout << newBoard[i].calculateCost() << endl;
+    //     board->printBoard();
+    //     cout << endl;
+    //     sem_post(&semaphore);
+    //     return NULL;
+    //     // }   
+    // }
+
     return NULL;
 }

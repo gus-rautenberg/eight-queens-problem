@@ -10,6 +10,7 @@
 using namespace std;
 
 Board::Board() {
+    this->setQueensQuantity(0);
     size = 8; // Tamanho padrão do xadrez
     posX.resize(size, 0);
     posY.resize(size, 0);
@@ -146,10 +147,17 @@ void Board::moveQueen(int queenIndex, int newPositionX, int newPositionY) {
 }
 
 int Board::getQueensQuantity() {
-   return this->queensQuantity; 
+   return queensQuantity; 
 }
 
 
 void Board::setQueensQuantity(int x) {
-   this->queensQuantity = x;
+   queensQuantity = x;
+}
+
+void Board::placeQueen(int queenIndex, int x, int y){
+    posX[queenIndex] = x;
+    posY[queenIndex] = y;
+
+    setQueensQuantity(queenIndex + 1);
 }

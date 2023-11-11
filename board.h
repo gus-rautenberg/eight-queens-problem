@@ -22,7 +22,7 @@ public:
     void setVectorY(const vector<int>& newVectorY);
     int getQueensQuantity();
     void setQueensQuantity(int x);
-    void placeQueen(int x, int y);
+    void placeQueen(int queenIndex, int x, int y);
 
 private:
     int size;
