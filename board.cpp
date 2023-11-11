@@ -144,3 +144,12 @@ void Board::moveQueen(int queenIndex, int newPositionX, int newPositionY) {
     posY[queenIndex] = newPositionY;
 
 }
+
+int Board::getQueensQuantity() {
+   return this->queensQuantity; 
+}
+
+
+void Board::setQueensQuantity(int x) {
+   this->queensQuantity = x;
+}
