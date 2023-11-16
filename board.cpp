@@ -18,11 +18,11 @@ Board::Board() {
 
 
 void Board::printBoard() const{
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
             bool temRainha = false;
 
-            for (int k = 0; k < 8; k++) {
+            for (int k = 0; k < size; k++) {
                 if (posX[k] == i && posY[k] == j) {
                     temRainha = true;
                     break;
@@ -44,8 +44,8 @@ void Board::printBoard() const{
 
 int Board::calculateCost() const {
     int cost = 0;
-    for (int i = 0; i < size; i++) {
-        for (int j = i + 1; j < size; j++) {
+    for (int i = 0; i < queensQuantity; i++) {
+        for (int j = i + 1; j < queensQuantity; j++) {
             if (posX[i] == posX[j] || posY[i] == posY[j] || abs(posX[i] - posX[j]) == abs(posY[i] - posY[j])) {
 
                 cost++;                                     
@@ -59,6 +59,11 @@ int Board::calculateCost() const {
 
 
 void Board::initialRandomBoard() {
+
+    posX.resize(size, 0);
+    posY.resize(size, 0);
+
+    setQueensQuantity(size);
 
     vector<int> indices(size);
     for (int i = 0; i < size; i++) {
@@ -156,8 +161,50 @@ void Board::setQueensQuantity(int x) {
 }
 
 void Board::placeQueen(int queenIndex, int x, int y){
+    int newQueenQuantity = getQueensQuantity() + 1;
+    
+    setQueensQuantity(newQueenQuantity);
+    
+    posX.resize(newQueenQuantity);
+    posY.resize(newQueenQuantity);
+    
     posX[queenIndex] = x;
     posY[queenIndex] = y;
 
-    setQueensQuantity(queenIndex + 1);
+}
+
+void Board::printBoardBF() const{
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            bool temRainha = false;
+
+            for (int k = 0; k < queensQuantity; k++) {
+                if (posX[k] == i && posY[k] == j) {
+                    temRainha = true;
+                    break;
+                }
+            }
+            if (temRainha) {
+
+                cout << "Q ";
+            } else {
+                cout << ". ";
+            }
+        }
+
+        cout << "\n";
+    }
+}
+
+void Board::printPos() {
+    for (int i = 0; i < posX.size(); i++)
+    {
+        cout << posX[i] << " ";
+    }
+    cout << endl;
+    for (int i = 0; i < posY.size(); i++)
+    {
+        cout << posY[i] << " ";
+    }
+    cout << endl;
 }

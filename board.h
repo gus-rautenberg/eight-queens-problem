@@ -24,6 +24,10 @@ public:
     void setQueensQuantity(int x);
     void placeQueen(int queenIndex, int x, int y);
 
+    void printBoardBF() const;
+    void printPos();
+
+
 private:
     int size;
     int queensQuantity;
