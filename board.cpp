@@ -10,12 +10,17 @@
 using namespace std;
 
 Board::Board() {
-    this->setQueensQuantity(0);
     size = 8; // Tamanho padrão do xadrez
-    posX.resize(size, 0);
-    posY.resize(size, 0);
-}
+    
+    vector<int> newBoard(size, -1);
 
+    this->setQueensQuantity(0);
+
+    posX = newBoard; //setting all queens X position to -1 so if they not in the board they won't show anywere
+    posY = newBoard; //setting all queens Y position to -1 so if they not in the board they won't show anywere
+ 
+    newBoard.~vector();
+}
 
 void Board::printBoard() const{
     for (int i = 0; i < size; i++) {
@@ -96,6 +101,10 @@ vector<int> Board::getVectorY() const{
     return posY;
 }
 
+int Board::getSize() {
+    return size;    
+}
+
 void Board::setVectorX(const vector<int>& newVectorX) {
     posX = newVectorX;
 }
@@ -160,42 +169,6 @@ void Board::setQueensQuantity(int x) {
    queensQuantity = x;
 }
 
-void Board::placeQueen(int queenIndex, int x, int y){
-    int newQueenQuantity = getQueensQuantity() + 1;
-    
-    setQueensQuantity(newQueenQuantity);
-    
-    posX.resize(newQueenQuantity);
-    posY.resize(newQueenQuantity);
-    
-    posX[queenIndex] = x;
-    posY[queenIndex] = y;
-
-}
-
-void Board::printBoardBF() const{
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            bool temRainha = false;
-
-            for (int k = 0; k < queensQuantity; k++) {
-                if (posX[k] == i && posY[k] == j) {
-                    temRainha = true;
-                    break;
-                }
-            }
-            if (temRainha) {
-
-                cout << "Q ";
-            } else {
-                cout << ". ";
-            }
-        }
-
-        cout << "\n";
-    }
-}
-
 void Board::printPos() {
     for (int i = 0; i < posX.size(); i++)
     {
@@ -207,4 +180,14 @@ void Board::printPos() {
         cout << posY[i] << " ";
     }
     cout << endl;
+}
+
+bool Board::isAttacking(int col, int newestQueen){
+    for (int j = newestQueen-1; j >= 0; j++) {
+        if (posX[newestQueen] == posX[j] || posY[newestQueen] == posY[newestQueen] || abs(posX[newestQueen] - posX[j]) == abs(posY[newestQueen] - posY[j])) {
+            return true;
+        }
+    }
+
+    return false;
 }
