@@ -24,7 +24,7 @@ public:
     int getQueensQuantity();
     void setQueensQuantity(int x);
     void placeQueen(int queenIndex, int x, int y);
-    bool isAttacking(int col, int newestQueen);
+    bool isAttacking(int newestQueen);
     void moveQueen(int queenIndex, int newPositionX, int newPositionY);
 
     void printPos();

@@ -182,7 +182,7 @@ void Board::printPos() {
     cout << endl;
 }
 
-bool Board::isAttacking(int col, int newestQueen){
+bool Board::isAttacking(int newestQueen){
     for (int j = newestQueen-1; j >= 0; j++) {
         if (posX[newestQueen] == posX[j] || posY[newestQueen] == posY[newestQueen] || abs(posX[newestQueen] - posX[j]) == abs(posY[newestQueen] - posY[j])) {
             return true;
