@@ -14,15 +14,16 @@ Board::Board() {
     
     vector<int> newBoard(size, -1);
 
-    this->setQueensQuantity(0);
-
+    queensQuantity = 0;
     posX = newBoard; //setting all queens X position to -1 so if they not in the board they won't show anywere
     posY = newBoard; //setting all queens Y position to -1 so if they not in the board they won't show anywere
- 
-    newBoard.~vector();
+
+    printPos();
 }
 
 void Board::printBoard() const{
+    cout << queensQuantity << " Queens on board" << endl;
+
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             bool temRainha = false;
@@ -41,7 +42,7 @@ void Board::printBoard() const{
             }
         }
 
-        cout << "\n";
+        cout << endl;
     }
 }
 
@@ -68,7 +69,7 @@ void Board::initialRandomBoard() {
     posX.resize(size, 0);
     posY.resize(size, 0);
 
-    setQueensQuantity(size);
+    queensQuantity = 8;
 
     vector<int> indices(size);
     for (int i = 0; i < size; i++) {
@@ -127,6 +128,7 @@ Board::Board(const Board &board) {
     size = board.size;
     posX = board.posX;
     posY = board.posY;
+    queensQuantity = board.queensQuantity;
 }
 
 
@@ -165,8 +167,8 @@ int Board::getQueensQuantity() {
 }
 
 
-void Board::setQueensQuantity(int x) {
-   queensQuantity = x;
+void Board::addQueen() {
+   queensQuantity += 1;
 }
 
 void Board::printPos() {
@@ -182,12 +184,15 @@ void Board::printPos() {
     cout << endl;
 }
 
-bool Board::isAttacking(int newestQueen){
-    for (int j = newestQueen-1; j >= 0; j++) {
-        if (posX[newestQueen] == posX[j] || posY[newestQueen] == posY[newestQueen] || abs(posX[newestQueen] - posX[j]) == abs(posY[newestQueen] - posY[j])) {
-            return true;
+int Board::isAttacking(int newestQueen){
+    int count=0;
+    for (int j = newestQueen-1; j >= 0; j--) {
+        if (posX[newestQueen] == posX[j] || posY[newestQueen] == posY[j] || abs(posX[newestQueen] - posX[j]) == abs(posY[newestQueen] - posY[j])) {
+            // cout << "true" << endl << endl;
+            count++;
         }
     }
 
-    return false;
+    // cout << "false" << endl << endl;
+    return count;
 }

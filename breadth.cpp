@@ -1,7 +1,7 @@
 #include "breadth_first.h"
 
 int main(){
-    first_breadth();
+    breath_first();
 
     return 0;
 }

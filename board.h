@@ -22,9 +22,9 @@ public:
     void setVectorX(const vector<int>& newVectorX);
     void setVectorY(const vector<int>& newVectorY);
     int getQueensQuantity();
-    void setQueensQuantity(int x);
+    void addQueen();
     void placeQueen(int queenIndex, int x, int y);
-    bool isAttacking(int newestQueen);
+    int isAttacking(int newestQueen);
     void moveQueen(int queenIndex, int newPositionX, int newPositionY);
 
     void printPos();
