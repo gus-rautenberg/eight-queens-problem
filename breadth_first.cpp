@@ -70,14 +70,14 @@ float breath_first_Time_First_Solution() {
             if(current.isAttacking(col) == 0) {
                 
                 Board newBoard = current;
-                newBoard.printBoard();
+                // newBoard.printBoard();
                 if (current.getQueensQuantity() == 8)
                 {
                     finish = clock();
                     return((float)(((finish - start) + 0.0) / CLOCKS_PER_SEC));
                 }
                 // newBoard.printPos();
-                cout << "First" << endl << endl;
+                // cout << "First" << endl << endl;
                 q.push(newBoard);
             }
         }
@@ -113,9 +113,9 @@ float breath_first_Time_All_Solutions() {
         
             if(current.isAttacking(col) == 0) {
                 Board newBoard = current;
-                newBoard.printBoard();
+                // newBoard.printBoard();
                 // newBoard.printPos();
-                cout << "All" << endl << endl;
+                // cout << "All" << endl << endl;
                 q.push(newBoard);
             }
         }
