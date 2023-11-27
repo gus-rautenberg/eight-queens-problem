@@ -11,7 +11,7 @@ app.use(express.json());
 app.post('/executar', (req, res) => {
   const { valor1, valor2 } = req.body;
 
-  const comando = `./seu_programa_cpp ${valor1} ${valor2}`;
+  const comando = `./sa ${valor1} ${valor2}`;
 
   exec(comando, (error, stdout, stderr) => {
     if (error) {
