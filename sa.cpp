@@ -10,7 +10,7 @@
 #include <vector>
 
 using namespace std;
-Sa::Sa(double initialTemperature, double coolingRate) : temperature(initialTemperature), cooling(coolingRate) {}
+Sa::Sa(){}
 
 void Sa::swapBoard(Board& auxBoard, int neighborX,int  newNeighborX, int neighborY, int newNeighborY){
     vector<int> vectorX = auxBoard.getVectorX();
@@ -49,53 +49,52 @@ void Sa::mainSa(Board board, Board auxBoard, int t){
     double delta;
     board.initialRandomBoard();
     auxBoard.initialRandomBoard();
+    auxBoard.printBoard();
     int boardCost = board.calculateCost();
     //cout << "Custo inicial do board: "<< boardCost << endl;
     while(t > 0){
-        //cout << "temperatura: " << t << endl;
+    //    cout << "temperatura: " << t << endl;
         t *= cooling;
-        // cout << "Aux" << endl;
-        board.copyBoard(auxBoard);
-        //cout << "Pos copia" << endl;
-        //cout <<"Custo board : " << board.calculateCost() << endl;
-        // cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
-        auxBoard.printBoard();
+    //    cout << "Aux" << endl;
+        auxBoard.copyBoard(board);
+    //    cout << "Pos copia" << endl;
+        cout <<"Custo board : " << board.calculateCost() << endl;
+    //    cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
+    //    auxBoard.printBoard();
         drawNeighbor(auxBoard);
-        //cout << "Pos drawNeighbor" << endl;
-        //cout <<"Custo board : " << board.calculateCost() << endl;
-        //cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
-        delta = auxBoard.calculateCost() - boardCost;
-        //cout << "delta: " << delta << endl;
+    //    cout << "Pos drawNeighbor" << endl;
+    //    cout <<"Custo board : " << board.calculateCost() << endl;
+    //    cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
+        delta = auxBoard.calculateCost() - board.calculateCost();
+    //    cout << "delta: " << delta << endl;
         if(delta < 0){
-            // cout << "Entrou no if delta < 0" << endl;
+    //        cout << "Entrou no if delta < 0" << endl;
             board.copyBoard(auxBoard);
             boardCost = board.calculateCost();
-            // cout <<"Custo board : " << boardCost<< endl;
-            //cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
+    //        cout <<"Custo board : " << boardCost<< endl;
+    //        cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
         }
         else{
             double prob = exp(-delta/t);
             if (random() /double(RAND_MAX) < prob){
-                // cout << "Entrou no random/double(rand_max)/prob" << endl;
-                auxBoard.copyBoard(board);
+    //            cout << "Entrou no random/double(rand_max)/prob" << endl;
+                //auxBoard.copyBoard(board);
+                board.copyBoard(auxBoard);
                 boardCost = board.calculateCost();
-                // cout <<"Custo board : " << boardCost << endl;
-                //cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
+    //            cout <<"Custo board : " << boardCost << endl;
+    //            cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
             }
         }
        
         if(board.calculateCost() == 0){
-        //    cout << "Board principal :" << endl;
-           board.printBoard();
-        //    cout << "Board auxiliar :" << endl;
-        //    auxBoard.printBoard();
+            cout << "Achou o tal do Zero" << endl;
+    //       cout << "Board principal :" << endl;
+    //       board.printBoard();
+    //       cout << "Board auxiliar :" << endl;
+    //       auxBoard.printBoard();
 
             break;
         }
     }
 }
 
-void Sa::getInfo(){
-    // cout << this->temperature << endl;
-    // cout << this->cooling << endl;
-}
