@@ -4,13 +4,15 @@
 #include <cmath>
 #include "board.h"
 #include "sa.h"
-#include <iostream>
 #include <cmath>
 #include <cstdlib>
 #include <vector>
+#include <time.h>
 
 using namespace std;
-Sa::Sa(){}
+//Sa::Sa(){}
+Sa::Sa(double initialTemperature, double coolingRate) : temperature(initialTemperature), cooling(coolingRate) {}
+
 
 void Sa::swapBoard(Board& auxBoard, int neighborX,int  newNeighborX, int neighborY, int newNeighborY){
     vector<int> vectorX = auxBoard.getVectorX();
@@ -46,10 +48,11 @@ void Sa::drawNeighbor(Board& auxBoard){
 
 
 void Sa::mainSa(Board board, Board auxBoard, int t){
+    
     double delta;
     board.initialRandomBoard();
     auxBoard.initialRandomBoard();
-    auxBoard.printBoard();
+    //auxBoard.printBoard();
     int boardCost = board.calculateCost();
     //cout << "Custo inicial do board: "<< boardCost << endl;
     while(t > 0){
@@ -58,7 +61,7 @@ void Sa::mainSa(Board board, Board auxBoard, int t){
     //    cout << "Aux" << endl;
         auxBoard.copyBoard(board);
     //    cout << "Pos copia" << endl;
-        cout <<"Custo board : " << board.calculateCost() << endl;
+    //    cout <<"Custo board : " << board.calculateCost() << endl;
     //    cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
     //    auxBoard.printBoard();
         drawNeighbor(auxBoard);
@@ -87,7 +90,7 @@ void Sa::mainSa(Board board, Board auxBoard, int t){
         }
        
         if(board.calculateCost() == 0){
-            cout << "Achou o tal do Zero" << endl;
+    //        cout << "Achou o tal do Zero" << endl;
     //       cout << "Board principal :" << endl;
     //       board.printBoard();
     //       cout << "Board auxiliar :" << endl;
