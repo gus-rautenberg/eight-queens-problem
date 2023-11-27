@@ -1,15 +1,23 @@
 // board.cpp
+// sudo apt-get install nlohmann-json3-dev
 #include "board.h"
 #include <iostream>
 #include <cmath>
 #include <cstdlib>
 #include <algorithm>
+// #include<iostream> 
+// #include <fstream>
+// #include <nlohmann/json.hpp>
+
 
 #include <unordered_set>
 
 using namespace std;
+// using json = nlohmann::json; 
+using namespace std; 
 
 Board::Board() {
+
     size = 8; // Tamanho padrão do xadrez
     posX.resize(size, 0);
     posY.resize(size, 0);
@@ -28,7 +36,6 @@ void Board::printBoard() const{
                 }
             }
             if (temRainha) {
-
                 cout << "Q ";
             } else {
                 cout << ". ";
@@ -38,8 +45,6 @@ void Board::printBoard() const{
         cout << "\n";
     }
 }
-
-
 
 int Board::calculateCost() const {
     int cost = 0;

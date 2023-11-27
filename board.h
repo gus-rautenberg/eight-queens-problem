@@ -9,7 +9,7 @@ using namespace std;
 class Board {
 public:
     Board();
-    void printBoard() const;
+    void printBoard(const string& filename) const;
     int calculateCost() const;
     void initialRandomBoard();
     Board(const Board &board);
