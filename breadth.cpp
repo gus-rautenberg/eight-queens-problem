@@ -11,8 +11,6 @@ int main(int argc, char const *argv[]){
         exit(1);
     }
 
-    cout << argv[1][0] << endl;
-
     fstream out;
     float time;
 
