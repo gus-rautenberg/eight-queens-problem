@@ -1,5 +1,5 @@
 .git
 .vscode
 breadth
-a.out
+*.out
 sa
