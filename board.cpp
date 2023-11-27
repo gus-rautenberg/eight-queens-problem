@@ -23,13 +23,9 @@ Board::Board() {
     queensQuantity = 0;
     posX = newBoard; //setting all queens X position to -1 so if they not in the board they won't show anywere
     posY = newBoard; //setting all queens Y position to -1 so if they not in the board they won't show anywere
-
-    printPos();
 }
 
 void Board::printBoard() const{
-    cout << queensQuantity << " Queens on board" << endl;
-
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             bool temRainha = false;
@@ -48,8 +44,9 @@ void Board::printBoard() const{
             }
         }
 
-        cout << endl;
+        cout << "<br>" << endl;
     }
+    cout << "<br>" << "<br>" << endl << endl;
 }
 
 
@@ -77,24 +74,18 @@ void Board::initialRandomBoard() {
 
     queensQuantity = 8;
 
-    vector<int> indices(size);
-    for (int i = 0; i < size; i++) {
-        indices[i] = i;
+    for (int i = 0; i < 8; i++)
+    {
+        int rx, ry;
+        do
+        {
+            rx = rand()%8;
+            ry = rand()%8;
+        } while (!isPositionFree(rx, ry));
+        posX[i] = rx;
+        posY[i] = ry;
     }
 
-    // Embaralha aleatoriamente os índices
-    random_shuffle(indices.begin(), indices.end());
-
-    for (int i = 0; i < size; i++) {
-        posX[i] = indices[i];
-    }
-
-    // Embaralha aleatoriamente os índices novamente
-    random_shuffle(indices.begin(), indices.end());
-
-    for (int i = 0; i < size; i++) {
-        posY[i] = indices[i];
-    }
 }
 
 

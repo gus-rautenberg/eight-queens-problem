@@ -54,11 +54,11 @@ void Sa::mainSa(Board board, Board auxBoard, int t){
     while(t > 0){
         //cout << "temperatura: " << t << endl;
         t *= cooling;
-        cout << "Aux" << endl;
+        // cout << "Aux" << endl;
         board.copyBoard(auxBoard);
         //cout << "Pos copia" << endl;
         //cout <<"Custo board : " << board.calculateCost() << endl;
-        cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
+        // cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
         auxBoard.printBoard();
         drawNeighbor(auxBoard);
         //cout << "Pos drawNeighbor" << endl;
@@ -67,19 +67,19 @@ void Sa::mainSa(Board board, Board auxBoard, int t){
         delta = auxBoard.calculateCost() - boardCost;
         //cout << "delta: " << delta << endl;
         if(delta < 0){
-            cout << "Entrou no if delta < 0" << endl;
+            // cout << "Entrou no if delta < 0" << endl;
             board.copyBoard(auxBoard);
             boardCost = board.calculateCost();
-            cout <<"Custo board : " << boardCost<< endl;
+            // cout <<"Custo board : " << boardCost<< endl;
             //cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
         }
         else{
             double prob = exp(-delta/t);
             if (random() /double(RAND_MAX) < prob){
-                cout << "Entrou no random/double(rand_max)/prob" << endl;
+                // cout << "Entrou no random/double(rand_max)/prob" << endl;
                 auxBoard.copyBoard(board);
                 boardCost = board.calculateCost();
-                cout <<"Custo board : " << boardCost << endl;
+                // cout <<"Custo board : " << boardCost << endl;
                 //cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
             }
         }
@@ -96,6 +96,6 @@ void Sa::mainSa(Board board, Board auxBoard, int t){
 }
 
 void Sa::getInfo(){
-    cout << this->temperature << endl;
-    cout << this->cooling << endl;
+    // cout << this->temperature << endl;
+    // cout << this->cooling << endl;
 }

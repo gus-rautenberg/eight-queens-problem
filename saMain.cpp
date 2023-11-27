@@ -32,7 +32,7 @@ if (argc >= 3) {
 Sa sa(initialTemperature, coolingRate);
 Board board, auxBoard;
 sa.mainSa(board, auxBoard, sa.temperature);
-cout << initialTemperature << " " << coolingRate << endl;
+// cout << initialTemperature << " " << coolingRate << endl;
 sa.getInfo();
     return 0;
 }
