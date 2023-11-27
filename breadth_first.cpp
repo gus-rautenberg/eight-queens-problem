@@ -4,14 +4,12 @@
 #include <vector>
 #include "board.h"
 #include <time.h>
-#include <ostream>
 
 using namespace std;
 
 void breath_first() {
     queue<Board> q;
     Board board;
-    FILE* out;
 
     q.push(board);
 
@@ -46,7 +44,6 @@ float breath_first_Time_First_Solution() {
     queue<Board> q;
     Board board;
     time_t start, finish;
-    FILE* out;
 
     q.push(board);
 
@@ -90,11 +87,10 @@ float breath_first_Time_All_Solutions() {
     queue<Board> q;
     Board board;
     time_t start, finish;
-    FILE* out;
 
     q.push(board);
 
-    int col = 0;
+    int col = 0;    
     start = clock();
     while(!q.empty()) {
         Board current = q.front();
