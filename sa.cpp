@@ -41,13 +41,12 @@ void Sa::drawNeighbor(Board& auxBoard){
         newPositionX = (int)random() % 8;
         newPositionY = (int)random() % 8;
     }while(!auxBoard.isPositionFree(newPositionX, newPositionY));
-   swapBoard(auxBoard, neighbor, newPositionX, newPositionY);
-    // cout << "Apos sair da troca no Draw" << endl;
-    // auxBoard.printBoard();
+    swapBoard(auxBoard, neighbor, newPositionX, newPositionY);
 }
 
 
 void Sa::mainSaFullRandom(Board board, Board auxBoard){
+    int counter = 1;
     double delta;
     board.initialRandomBoard();
     Board best;
@@ -55,16 +54,16 @@ void Sa::mainSaFullRandom(Board board, Board auxBoard){
     double t = temperature;
     int boardCost = board.calculateCost();
     int testBoardCost, testBestCost;
-    fstream out;
+    fstream out, time;
     out << "{ ";
     out.open("output.json", ios::out);
-    board.writeOnFile(out);
+    board.writeOnFile(out, counter++);
     for(int k = 0; k < 1000; k++){
         t *= cooling;
         auxBoard.copyBoard(board);
         drawNeighbor(auxBoard);
         out << ", ";
-        auxBoard.writeOnFile(out);
+        auxBoard.writeOnFile(out, counter++);
         delta = auxBoard.calculateCost() - board.calculateCost();
         if(delta < 0){
             board.copyBoard(auxBoard);
@@ -83,7 +82,7 @@ void Sa::mainSaFullRandom(Board board, Board auxBoard){
             best.copyBoard(board);
         }
         out << ", ";
-        board.writeOnFile(out);
+        board.writeOnFile(out, counter++);
         if(board.calculateCost() == 0){
             break;
         }
@@ -93,7 +92,7 @@ void Sa::mainSaFullRandom(Board board, Board auxBoard){
 }
 
 void Sa::mainSaOptimized(Board board, Board auxBoard){
-    
+    int counter = 1;
     double delta;
     board.initialRandomBoardOptimized();
     board.printBoard();
@@ -106,13 +105,13 @@ void Sa::mainSaOptimized(Board board, Board auxBoard){
     fstream out;
     out << "{ ";
     out.open("output.json", ios::out);
-    board.writeOnFile(out);
+    board.writeOnFile(out, counter++);
     for(int k = 0; k < 1; k++){    
         t *= cooling;
         auxBoard.copyBoard(board);
         drawNeighbor(auxBoard);
         out << ", ";
-        auxBoard.writeOnFile(out);
+        auxBoard.writeOnFile(out, counter++);
         delta = auxBoard.calculateCost() - board.calculateCost();
         if(delta < 0){
             board.copyBoard(auxBoard);
@@ -131,7 +130,7 @@ void Sa::mainSaOptimized(Board board, Board auxBoard){
             best.copyBoard(board);
         }
         out << ", ";
-        board.writeOnFile(out);
+        board.writeOnFile(out, counter++);
         if(board.calculateCost() == 0){
             break;
         }
