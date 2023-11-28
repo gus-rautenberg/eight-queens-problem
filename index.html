@@ -95,7 +95,7 @@
             const chessboard = document.getElementById('chessboard');
             const iterationElement = document.getElementById('iteration');
             // Certifique-se de que queensResult seja um array
-            const queensArray = Object.values(queensResult);
+            let queensArray = Object.values(queensResult);
 
             queensArray.forEach((queen, index) => {
                 // Certifique-se de que há posições para a rainha
@@ -123,6 +123,8 @@
                     }, index * 5); 
                 }
             });
+            delete queensResult;
+            
         }
 
         function clearChessboard(chessboard) {

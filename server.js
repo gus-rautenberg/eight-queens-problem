@@ -25,6 +25,7 @@ app.get('/run', (req, res) => {
                 // console.log('Queens result:', queensResult);
 
                 res.json(queensResult);
+                fs.unlinkSync('output.json');
             } catch (error) {
                 console.error('Erro ao ler o arquivo output.json:', error);
                 return res.status(500).json({ error: 'Erro ao ler o arquivo output.json', details: error.message });
@@ -52,6 +53,7 @@ app.get('/runSA', (req, res) => {
                 // console.log('Queens result:', queensResult);
 
                 res.json(queensResult);
+                fs.unlinkSync('output.json');
             } catch (error) {
                 console.error('Erro ao ler o arquivo output.json:', error);
                 return res.status(500).json({ error: 'Erro ao ler o arquivo output.json', details: error.message });
@@ -64,6 +66,7 @@ app.get('/runSA', (req, res) => {
         console.error(`Erro na execução: ${error}`);
         return res.status(500).json({ error: 'Erro na execução do programa em C++', details: error.message });
     }
+    
 });
 
 app.listen(port, () => {
