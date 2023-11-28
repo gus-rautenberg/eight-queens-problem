@@ -12,6 +12,7 @@ public:
     void printBoard() const;
     int calculateCost() const;
     void initialRandomBoard();
+    void initialRandomBoardOptimized();
     Board(const Board &board);
     void randomMove();
     bool isPositionFree(int x, int y) const;
@@ -24,7 +25,7 @@ public:
     int getQueensQuantity();
     void addQueen();
     void placeQueen(int queenIndex, int x, int y);
-    int isAttacking(int newestQueen);
+    int isAttacking(int newestQueen = 8);
     void moveQueen(int queenIndex, int newPositionX, int newPositionY);
 
     void printPos();

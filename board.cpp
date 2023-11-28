@@ -88,6 +88,29 @@ void Board::initialRandomBoard() {
 
 }
 
+void Board::initialRandomBoardOptimized() {
+
+    vector<int> indices(size);
+    for (int i = 0; i < size; i++) {
+        indices[i] = i;
+    }
+
+    // Embaralha aleatoriamente os índices
+    random_shuffle(indices.begin(), indices.end());
+
+    for (int i = 0; i < size; i++) {
+        posX[i] = indices[i];
+    }
+
+    // Embaralha aleatoriamente os índices novamente
+    random_shuffle(indices.begin(), indices.end());
+
+    for (int i = 0; i < size; i++) {
+        posY[i] = indices[i];
+    }
+}
+
+
 
 // Função para obter o vetor posX
 vector<int> Board::getVectorX() const{
@@ -119,13 +142,14 @@ void Board::copyBoard(const Board &source) {
     // Copia as posições X e Y das rainhas diretamente usando =
     posX = source.posX;
     posY = source.posY;
+    queensQuantity = source.queensQuantity;
 }
 
 Board::Board(const Board &board) {
     size = board.size;
     posX = board.posX;
     posY = board.posY;
-    queensQuantity = board.queensQuantity;
+    
 }
 
 
@@ -184,7 +208,7 @@ void Board::printPos() {
 int Board::isAttacking(int newestQueen){
     int count=0;
     for (int j = newestQueen-1; j >= 0; j--) {
-        if (posX[newestQueen] == posX[j] || posY[newestQueen] == posY[j] || abs(posX[newestQueen] - posX[j]) == abs(posY[newestQueen] - posY[j])) {
+        if (posX[newestQueen] == posX[j] || posY[newestQueen] == posY[j] || abs(posX[newestQueen] - posX[j]) == abs(posY[newestQueen] - posY[j])){
             // cout << "true" << endl << endl;
             count++;
         }
