@@ -119,12 +119,13 @@ void Sa::mainSaOptimized(Board board, Board auxBoard){
     
     double delta;
     board.initialRandomBoardOptimized();
+    board.printBoard();
     auxBoard.initialRandomBoardOptimized();
     Board best = board;
     best.copyBoard(board);
     int boardCost = board.calculateCost();
     int testBoardCost, testBestCost;
-    //cout << "Custo inicial do board: "<< boardCost << endl;
+    cout << "Custo inicial do board: "<< boardCost << endl;
     while(temperature > 0){
     //    cout << "temperatura: " << t << endl;
         temperature *= cooling;
@@ -158,15 +159,15 @@ void Sa::mainSaOptimized(Board board, Board auxBoard){
     //            cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
             }
         }
-        cout << "antes best" << endl;
+        // cout << "antes best" << endl;
         testBoardCost = board.calculateCost();
         testBestCost = best.calculateCost();
-        cout << testBoardCost << endl;
-        cout << testBestCost << endl;
+        //cout << testBoardCost << endl;
+        //cout << testBestCost << endl;
         if(testBoardCost < testBestCost){
             best.copyBoard(board);
         }
-        cout << "depois best" << endl;
+        // cout << "depois best" << endl;
        
        
         if(board.calculateCost() == 0){
@@ -183,6 +184,7 @@ void Sa::mainSaOptimized(Board board, Board auxBoard){
     best.printBoard();
     best.printPos();
     cout << best.calculateCost() << endl;
+
 
 }
 
