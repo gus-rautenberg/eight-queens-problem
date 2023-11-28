@@ -5,8 +5,8 @@
 #include <cmath>
 #include <cstdlib>
 #include <algorithm>
+#include <fstream>
 // #include<iostream> 
-// #include <fstream>
 // #include <nlohmann/json.hpp>
 
 
@@ -49,16 +49,28 @@ void Board::printBoard() const{
     cout << "<br>" << "<br>" << endl << endl;
 }
 
+void Board::writeOnFile(fstream& out){
+    if (out.is_open()) {
+        out << "{ \"queens\": [";
+
+        for (int i = 0; i < 8; ++i) {
+            out << "{ \"x\": " << posX[i] << ", \"y\": " << posY[i] << "}";
+            if (i < 7) {
+                out << ",";
+            }
+        }
+        out << "]";
+    }
+}
 
 
 int Board::calculateCost() const {
     int cost = 0;
-    for (int i = 0; i < queensQuantity; i++) {
-        for (int j = i + 1; j < queensQuantity; j++) {
-            if (posX[i] == posX[j] || posY[i] == posY[j] || abs(posX[i] - posX[j]) == abs(posY[i] - posY[j])) {
-
+    for (int i = 0; i < 7; i++) {
+        for (int j = i + 1; j < 8; j++) {
+            
+            if (i != j && posX[i] == posX[j] || posY[i] == posY[j] || abs(posX[i] - posX[j]) == abs(posY[i] - posY[j])) {
                 cost++;                                     
-
             }
         }
     }
@@ -87,6 +99,29 @@ void Board::initialRandomBoard() {
     }
 
 }
+
+void Board::initialRandomBoardOptimized() {
+
+    vector<int> indices(size);
+    for (int i = 0; i < size; i++) {
+        indices[i] = i;
+    }
+
+    // Embaralha aleatoriamente os índices
+    random_shuffle(indices.begin(), indices.end());
+
+    for (int i = 0; i < size; i++) {
+        posX[i] = indices[i];
+    }
+
+    // Embaralha aleatoriamente os índices novamente
+    random_shuffle(indices.begin(), indices.end());
+
+    for (int i = 0; i < size; i++) {
+        posY[i] = indices[i];
+    }
+}
+
 
 
 // Função para obter o vetor posX
@@ -119,6 +154,7 @@ void Board::copyBoard(const Board &source) {
     // Copia as posições X e Y das rainhas diretamente usando =
     posX = source.posX;
     posY = source.posY;
+    queensQuantity = source.queensQuantity;
 }
 
 Board::Board(const Board &board) {
@@ -156,7 +192,6 @@ bool Board::isPositionFree(int x, int y) const {
 void Board::moveQueen(int queenIndex, int newPositionX, int newPositionY) {
     posX[queenIndex] = newPositionX;
     posY[queenIndex] = newPositionY;
-
 }
 
 int Board::getQueensQuantity() {
@@ -184,7 +219,7 @@ void Board::printPos() {
 int Board::isAttacking(int newestQueen){
     int count=0;
     for (int j = newestQueen-1; j >= 0; j--) {
-        if (posX[newestQueen] == posX[j] || posY[newestQueen] == posY[j] || abs(posX[newestQueen] - posX[j]) == abs(posY[newestQueen] - posY[j])) {
+        if (posX[newestQueen] == posX[j] || posY[newestQueen] == posY[j] || abs(posX[newestQueen] - posX[j]) == abs(posY[newestQueen] - posY[j])){
             // cout << "true" << endl << endl;
             count++;
         }
