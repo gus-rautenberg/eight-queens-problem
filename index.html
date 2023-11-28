@@ -41,6 +41,7 @@
 <body>
     <button onclick="runQueens()">Compilar e Executar</button>
     <div id="chessboard"></div>
+    <h1 id="iteration"></h1>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -49,14 +50,19 @@
 
         function createChessboard() {
             const chessboard = document.getElementById('chessboard');
+            chessboard.matrix = []; // Matriz para representar o tabuleiro
 
             for (let row = 0; row < 8; row++) {
+                chessboard.matrix[row] = []; // Cada linha é um array
                 for (let col = 0; col < 8; col++) {
                     const square = document.createElement('div');
                     square.className = 'square';
                     square.classList.add((row + col) % 2 === 0 ? 'white' : 'black');
                     square.textContent = '';
                     chessboard.appendChild(square);
+
+                    // Preencher a matriz
+                    chessboard.matrix[row][col] = square;
                 }
             }
         }
@@ -66,7 +72,6 @@
                 .then(response => response.json())
                 .then(data => {
                     console.log('Queens result:', data);
-                    console.log(typeof(data));
                     updateChessboard(data);
                 })
                 .catch(error => {
@@ -76,26 +81,44 @@
 
         function updateChessboard(queensResult) {
             const chessboard = document.getElementById('chessboard');
-            clearChessboard(chessboard);
-
+            const iterationElement = document.getElementById('iteration');
             // Certifique-se de que queensResult seja um array
-            const queensArray = Array.isArray(queensResult) ? queensResult : [queensResult];
+            const queensArray = Object.values(queensResult);
 
             queensArray.forEach((queen, index) => {
-                const squareIndex = queen.x + 8 * (7 - queen.y);
+                // Certifique-se de que há posições para a rainha
+                if (queen.length > 0) {
+                    // Agendar a atualização do tabuleiro com atraso
+                    setTimeout(() => {
+                        clearChessboard(chessboard); // Limpar o tabuleiro antes de cada iteração
+                        
+                        queen.forEach((position) => {
+                            const { x, y } = position;
+                            // Verificar se as coordenadas estão dentro dos limites
+                            if (x >= 0 && x < 8 && y >= 0 && y < 8) {
+                                const square = chessboard.matrix[x][y];
+                                square.textContent = `Q${index + 1}`;
+                                chessboard.matrix[x][y] = square;
+                            }
+                        });
 
-                // Verificar se o índice está dentro dos limites
-                if (squareIndex >= 0 && squareIndex < chessboard.children.length) {
-                    const square = chessboard.children[squareIndex];
-                    square.textContent = `Q${index + 1}`;
+                        iterationElement.textContent = `Iteration: ${index + 1}`;
+                        if (index !== queensArray.length - 1) {
+                            setTimeout(() => {
+                                clearChessboard(chessboard);
+                            }, 2900); 
+                        }
+                    }, index * 3000); 
                 }
             });
         }
 
         function clearChessboard(chessboard) {
-            const squares = chessboard.getElementsByClassName('square');
-            for (const square of squares) {
-                square.textContent = '';
+            for (let row = 0; row < 8; row++) {
+                for (let col = 0; col < 8; col++) {
+                    const square = chessboard.matrix[row][col];
+                    square.textContent = '';
+                }
             }
         }
     </script>

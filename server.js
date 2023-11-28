@@ -21,8 +21,8 @@ app.get('/run', (req, res) => {
         // Verificar se o arquivo JSON foi gerado
         if (fs.existsSync('output.json')) {
             try {
-                const queensResult = require('./newTest/output.json');
-                console.log('Queens result:', queensResult);
+                const queensResult = require('./output.json');
+                // console.log('Queens result:', queensResult);
 
                 res.json(queensResult);
             } catch (error) {
