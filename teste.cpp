@@ -14,7 +14,7 @@ int main() {
     mt19937 g(rd());
     ofstream outputFile(outputFileName);
     outputFile << "{";
-    int total = 50;
+    int total = 100000;
     for (int a = 0; a < total; a++) {
         // Embaralha os arrays
         shuffle(begin(posX), end(posX), g);

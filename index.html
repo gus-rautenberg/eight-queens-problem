@@ -7,7 +7,7 @@
     <style>
         body {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             height: 100vh;
             margin: 0;
@@ -97,7 +97,7 @@
                             // Verificar se as coordenadas estão dentro dos limites
                             if (x >= 0 && x < 8 && y >= 0 && y < 8) {
                                 const square = chessboard.matrix[x][y];
-                                square.textContent = `Q${index + 1}`;
+                                square.textContent = `Q`;
                                 chessboard.matrix[x][y] = square;
                             }
                         });
@@ -106,9 +106,9 @@
                         if (index !== queensArray.length - 1) {
                             setTimeout(() => {
                                 clearChessboard(chessboard);
-                            }, 2900); 
+                            }, 230); 
                         }
-                    }, index * 3000); 
+                    }, index * 250); 
                 }
             });
         }
