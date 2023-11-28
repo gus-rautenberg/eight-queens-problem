@@ -4,9 +4,4 @@ breadth
 *.out
 sa
 node_modules
-<<<<<<< HEAD
 output.json
-=======
-BF.json
-SA.json
->>>>>>> 02745540a831cd09baa65d95ddc888dd3c97c088

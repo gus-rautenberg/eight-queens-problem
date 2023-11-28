@@ -56,13 +56,14 @@ void Sa::mainSaFullRandom(Board board, Board auxBoard){
     int boardCost = board.calculateCost();
     int testBoardCost, testBestCost;
     fstream out;
+    out << "{ ";
     out.open("output.json", ios::out);
     board.writeOnFile(out);
     for(int k = 0; k < 1000; k++){
         t *= cooling;
         auxBoard.copyBoard(board);
         drawNeighbor(auxBoard);
-        out << ",";
+        out << ", ";
         auxBoard.writeOnFile(out);
         delta = auxBoard.calculateCost() - board.calculateCost();
         if(delta < 0){
@@ -81,12 +82,13 @@ void Sa::mainSaFullRandom(Board board, Board auxBoard){
         if(testBoardCost < testBestCost){
             best.copyBoard(board);
         }
-        out << ",";
+        out << ", ";
         board.writeOnFile(out);
         if(board.calculateCost() == 0){
             break;
         }
     }
+    out << "}";
     out.close();
 }
 
@@ -102,13 +104,14 @@ void Sa::mainSaOptimized(Board board, Board auxBoard){
     int testBoardCost, testBestCost;
     double t = temperature;
     fstream out;
+    out << "{ ";
     out.open("output.json", ios::out);
     board.writeOnFile(out);
     for(int k = 0; k < 1; k++){    
         t *= cooling;
         auxBoard.copyBoard(board);
         drawNeighbor(auxBoard);
-        out << ",";
+        out << ", ";
         auxBoard.writeOnFile(out);
         delta = auxBoard.calculateCost() - board.calculateCost();
         if(delta < 0){
@@ -127,12 +130,13 @@ void Sa::mainSaOptimized(Board board, Board auxBoard){
         if(testBoardCost < testBestCost){
             best.copyBoard(board);
         }
-        out << ",";
+        out << ", ";
         board.writeOnFile(out);
         if(board.calculateCost() == 0){
             break;
         }
     }
+    out << "}";
     out.close();
 }
 
