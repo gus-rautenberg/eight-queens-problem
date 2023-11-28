@@ -15,7 +15,10 @@ void breath_first() {
 
     q.push(board);
 
-    out.open("BF.json", ios::out);
+    out.open("output.json", ios::out);
+
+    out << "{ "; 
+
     board.writeOnFile(out);
 
     int col;
@@ -28,7 +31,7 @@ void breath_first() {
         for (int i = 0; i < 8; i++) {
             current.moveQueen(col, i, col);
 
-            out << ",";
+            out << ", ";
             current.writeOnFile(out);
         
             if(current.isAttacking(col) == 0) {
@@ -37,6 +40,7 @@ void breath_first() {
             }
         }
     }
+    out << "}"; 
     out.close();
 }
 
