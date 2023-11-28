@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Board</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #chessboard {
+            display: grid;
+            grid-template-columns: repeat(8, 50px);
+            grid-template-rows: repeat(8, 50px);
+        }
+
+        .square {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        .white {
+            background-color: #eee;
+        }
+
+        .black {
+            background-color: #444;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="runQueens()">Compilar e Executar</button>
+    <div id="chessboard"></div>
+    <h1 id="iteration"></h1>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            createChessboard();
+        });
+
+        function createChessboard() {
+            const chessboard = document.getElementById('chessboard');
+            chessboard.matrix = []; // Matriz para representar o tabuleiro
+
+            for (let row = 0; row < 8; row++) {
+                chessboard.matrix[row] = []; // Cada linha é um array
+                for (let col = 0; col < 8; col++) {
+                    const square = document.createElement('div');
+                    square.className = 'square';
+                    square.classList.add((row + col) % 2 === 0 ? 'white' : 'black');
+                    square.textContent = '';
+                    chessboard.appendChild(square);
+
+                    // Preencher a matriz
+                    chessboard.matrix[row][col] = square;
+                }
+            }
+        }
+
+        function runQueens() {
+            fetch('/run')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Queens result:', data);
+                    updateChessboard(data);
+                })
+                .catch(error => {
+                    console.error('Erro na execução:', error);
+                });
+        }
+
+        function updateChessboard(queensResult) {
+            const chessboard = document.getElementById('chessboard');
+            const iterationElement = document.getElementById('iteration');
+            // Certifique-se de que queensResult seja um array
+            const queensArray = Object.values(queensResult);
+
+            queensArray.forEach((queen, index) => {
+                // Certifique-se de que há posições para a rainha
+                if (queen.length > 0) {
+                    // Agendar a atualização do tabuleiro com atraso
+                    setTimeout(() => {
+                        clearChessboard(chessboard); // Limpar o tabuleiro antes de cada iteração
+                        
+                        queen.forEach((position) => {
+                            const { x, y } = position;
+                            // Verificar se as coordenadas estão dentro dos limites
+                            if (x >= 0 && x < 8 && y >= 0 && y < 8) {
+                                const square = chessboard.matrix[x][y];
+                                square.textContent = `Q`;
+                                chessboard.matrix[x][y] = square;
+                            }
+                        });
+
+                        iterationElement.textContent = `Iteration: ${index + 1}`;
+                        if (index !== queensArray.length - 1) {
+                            setTimeout(() => {
+                                clearChessboard(chessboard);
+                            }, 230); 
+                        }
+                    }, index * 250); 
+                }
+            });
+        }
+
+        function clearChessboard(chessboard) {
+            for (let row = 0; row < 8; row++) {
+                for (let col = 0; col < 8; col++) {
+                    const square = chessboard.matrix[row][col];
+                    square.textContent = '';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

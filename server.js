@@ -1,33 +1,44 @@
-// server.js
+
 const express = require('express');
-const { exec } = require('child_process');
+const { execSync } = require('child_process');
+const fs = require('fs');
 
 const app = express();
 const port = 3000;
 
 app.use(express.static('public'));
-app.use(express.json());
 
-app.post('/executar', (req, res) => {
-  const { valor1, valor2 } = req.body;
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
 
-  const comando = `./sa ${valor1} ${valor2}`;
+app.get('/run', (req, res) => {
+    const command = 'g++ -o teste teste.cpp && ./teste';
 
-  exec(comando, (error, stdout, stderr) => {
-    if (error) {
-      res.status(500).json({ error: `Erro ao executar o comando: ${error.message}` });
-      return;
+    try {
+        const stdout = execSync(command, { stdio: 'inherit' });
+
+        // Verificar se o arquivo JSON foi gerado
+        if (fs.existsSync('output.json')) {
+            try {
+                const queensResult = require('./output.json');
+                // console.log('Queens result:', queensResult);
+
+                res.json(queensResult);
+            } catch (error) {
+                console.error('Erro ao ler o arquivo output.json:', error);
+                return res.status(500).json({ error: 'Erro ao ler o arquivo output.json', details: error.message });
+            }
+        } else {
+            console.error('O arquivo output.json não foi gerado');
+            return res.status(500).json({ error: 'O arquivo output.json não foi gerado' });
+        }
+    } catch (error) {
+        console.error(`Erro na execução: ${error}`);
+        return res.status(500).json({ error: 'Erro na execução do programa em C++', details: error.message });
     }
-    if (stderr) {
-      res.status(500).json({ error: `Erro no stderr: ${stderr}` });
-      return;
-    }
-    res.json({ output: stdout });
-  });
 });
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
-
-
