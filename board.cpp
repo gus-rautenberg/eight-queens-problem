@@ -51,7 +51,7 @@ void Board::printBoard() const{
 
 void Board::writeOnFile(fstream& out){
     if (out.is_open()) {
-        out << "{ \"queens\": [";
+        out << "\"queens\": [";
 
         for (int i = 0; i < 8; ++i) {
             out << "{ \"x\": " << posX[i] << ", \"y\": " << posY[i] << "}";
@@ -59,7 +59,7 @@ void Board::writeOnFile(fstream& out){
                 out << ",";
             }
         }
-        out << "]}";
+        out << "]";
     }
 }
 
