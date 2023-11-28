@@ -11,7 +11,7 @@ class Board {
 public:
     Board();
     void printBoard() const;
-    void writeOnFile(fstream& out);
+    void writeOnFile(fstream& out, int i);
     int calculateCost() const;
     void initialRandomBoard();
     void initialRandomBoardOptimized();

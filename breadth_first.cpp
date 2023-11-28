@@ -15,24 +15,26 @@ void breath_first() {
 
     q.push(board);
 
+    int count = 1;
+
     out.open("output.json", ios::out);
 
     out << "{ "; 
 
-    board.writeOnFile(out);
+    board.writeOnFile(out, count);
 
     int col;
     while(!q.empty()) {
         Board current = q.front();
         q.pop();
-
+        count++;
         current.addQueen();
         int col = current.getQueensQuantity() -1;
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 8; i++, count++) {
             current.moveQueen(col, i, col);
 
             out << ", ";
-            current.writeOnFile(out);
+            current.writeOnFile(out, count);
         
             if(current.isAttacking(col) == 0) {
                 Board newBoard = current;
