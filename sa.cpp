@@ -11,7 +11,7 @@
 
 using namespace std;
 //Sa::Sa(){}
-Sa::Sa(int initialTemperature, double coolingRate) : temperature(initialTemperature), cooling(coolingRate) {}
+Sa::Sa(double initialTemperature, double coolingRate) : temperature(initialTemperature), cooling(coolingRate) {}
 
 
 void Sa::swapBoard(Board& auxBoard, int neighborX,int  newNeighborX, int newNeighborY){
@@ -51,15 +51,16 @@ void Sa::mainSaFullRandom(Board board, Board auxBoard){
     board.initialRandomBoard();
     Board best;
     best.copyBoard(board);
+    double t = temperature;
     //auxBoard.printBoard();
     int boardCost = board.calculateCost();
     int testBoardCost, testBestCost;
     
     //cout << "Custo inicial do board: "<< boardCost << endl;
-    while(temperature > 0){
+    while(t > 0){
 
-    //    cout << "temperatura: " << temperature << endl;
-        temperature *= cooling;
+        cout << "temperatura: " << t << endl;
+        t *= cooling;
     //    cout << "Aux" << endl;
         auxBoard.copyBoard(board);
     //    cout << "Pos copia" << endl;
@@ -81,7 +82,7 @@ void Sa::mainSaFullRandom(Board board, Board auxBoard){
     //        cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
         }
         else{
-            double prob = exp(-delta/temperature);
+            double prob = exp(-delta/t);
             if (random() /double(RAND_MAX) < prob){
     //            cout << "Entrou no random/double(rand_max)/prob" << endl;
                 //auxBoard.copyBoard(board);
@@ -91,15 +92,15 @@ void Sa::mainSaFullRandom(Board board, Board auxBoard){
     //            cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
             }
         }
-        cout << "antes best" << endl;
+        // cout << "antes best" << endl;
         testBoardCost = board.calculateCost();
         testBestCost = best.calculateCost();
-        cout << testBoardCost << endl;
-        cout << testBestCost << endl;
+        //cout << testBoardCost << endl;
+        //cout << testBestCost << endl;
         if(testBoardCost < testBestCost){
             best.copyBoard(board);
         }
-        cout << "depois best" << endl;
+        // cout << "depois best" << endl;
 
         if(board.calculateCost() == 0){
     //        cout << "Achou o tal do Zero" << endl;
@@ -125,10 +126,11 @@ void Sa::mainSaOptimized(Board board, Board auxBoard){
     best.copyBoard(board);
     int boardCost = board.calculateCost();
     int testBoardCost, testBestCost;
+    double t = temperature;
     cout << "Custo inicial do board: "<< boardCost << endl;
-    while(temperature > 0){
-    //    cout << "temperatura: " << t << endl;
-        temperature *= cooling;
+    while(t > 0){
+        cout << "temperatura: " << t << endl;
+        t *= cooling;
     //    cout << "Aux" << endl;
         auxBoard.copyBoard(board);
     //    cout << "Pos copia" << endl;
@@ -149,7 +151,7 @@ void Sa::mainSaOptimized(Board board, Board auxBoard){
     //        cout <<"Custo aux : " << auxBoard.calculateCost() << endl;
         }
         else{
-            double prob = exp(-delta/temperature);
+            double prob = exp(-delta/t);
             if (random() /double(RAND_MAX) < prob){
     //            cout << "Entrou no random/double(rand_max)/prob" << endl;
                 //auxBoard.copyBoard(board);
