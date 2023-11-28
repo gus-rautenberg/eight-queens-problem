@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/run', (req, res) => {
-    const command = 'g++ -o teste teste.cpp && ./teste';
+    const command = 'g++ -o breadth breadth.cpp breadth_first.cpp board.cpp && ./breadth n';
 
     try {
         const stdout = execSync(command, { stdio: 'inherit' });
