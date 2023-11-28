@@ -57,7 +57,8 @@ void Sa::mainSaFullRandom(Board board, Board auxBoard){
     int testBoardCost, testBestCost;
     
     //cout << "Custo inicial do board: "<< boardCost << endl;
-    while(t > 0){
+    //while(t > 0){
+    for(int k = 0; k < 1000; k++){
 
         cout << "temperatura: " << t << endl;
         t *= cooling;
