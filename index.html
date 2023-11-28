@@ -39,7 +39,8 @@
     </style>
 </head>
 <body>
-    <button onclick="runQueens()">Compilar e Executar</button>
+    <button onclick="runQueens()">Compilar e Executar Breadth</button>
+    <button onclick="runQueensSA()">Compilar e Executar SA</button>
     <div id="chessboard"></div>
     <h1 id="iteration"></h1>
 
@@ -78,6 +79,17 @@
                     console.error('Erro na execução:', error);
                 });
         }
+        function runQueensSA() {
+            fetch('/runSA')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Queens result:', data);
+                    updateChessboard(data);
+                })
+                .catch(error => {
+                    console.error('Erro na execução:', error);
+                });
+        }
 
         function updateChessboard(queensResult) {
             const chessboard = document.getElementById('chessboard');
@@ -106,9 +118,9 @@
                         if (index !== queensArray.length - 1) {
                             setTimeout(() => {
                                 clearChessboard(chessboard);
-                            }, 230); 
+                            }, 3); 
                         }
-                    }, index * 250); 
+                    }, index * 5); 
                 }
             });
         }
