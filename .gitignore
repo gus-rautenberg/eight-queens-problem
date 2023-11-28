@@ -4,3 +4,4 @@ breadth
 *.out
 sa
 node_modules
+output.json
