@@ -36,5 +36,7 @@ int main(int argc, char const *argv[]){
         break;
     }
 
+    out.close();
+
     return 0;
 }
