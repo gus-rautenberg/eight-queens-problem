@@ -5,8 +5,8 @@
 #include <cmath>
 #include <cstdlib>
 #include <algorithm>
+#include <fstream>
 // #include<iostream> 
-// #include <fstream>
 // #include <nlohmann/json.hpp>
 
 
@@ -49,6 +49,19 @@ void Board::printBoard() const{
     cout << "<br>" << "<br>" << endl << endl;
 }
 
+void Board::writeOnFile(fstream& out){
+    if (out.is_open()) {
+        out << "{ \"queens\": [";
+
+        for (int i = 0; i < 8; ++i) {
+            out << "{ \"x\": " << posX[i] << ", \"y\": " << posY[i] << "}";
+            if (i < 7) {
+                out << ",";
+            }
+        }
+        out << "]";
+    }
+}
 
 
 int Board::calculateCost() const {
@@ -148,7 +161,7 @@ Board::Board(const Board &board) {
     size = board.size;
     posX = board.posX;
     posY = board.posY;
-    
+    queensQuantity = board.queensQuantity;
 }
 
 
@@ -179,7 +192,6 @@ bool Board::isPositionFree(int x, int y) const {
 void Board::moveQueen(int queenIndex, int newPositionX, int newPositionY) {
     posX[queenIndex] = newPositionX;
     posY[queenIndex] = newPositionY;
-
 }
 
 int Board::getQueensQuantity() {

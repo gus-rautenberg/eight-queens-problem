@@ -3,6 +3,7 @@
 #define BOARD_H
 
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
@@ -10,6 +11,7 @@ class Board {
 public:
     Board();
     void printBoard() const;
+    void writeOnFile(fstream& out);
     int calculateCost() const;
     void initialRandomBoard();
     void initialRandomBoardOptimized();
