@@ -57,28 +57,19 @@ float breath_first_Time_First_Solution() {
         Board current = q.front();
         q.pop();
 
-        // current.printBoard();
-        // cout << "Before moving" << endl << endl;
-
         current.addQueen();
         int col = current.getQueensQuantity() -1;
         for (int i=0; i < 8; i++) {
             current.moveQueen(col, i, col);
-
-            // current.printBoard();
-            // cout << "After moving to " << i << " " << col << endl << endl;
         
             if(current.isAttacking(col) == 0) {
                 
                 Board newBoard = current;
-                // newBoard.printBoard();
                 if (current.getQueensQuantity() == 8)
                 {
                     finish = clock();
                     return((float)(((finish - start) + 0.0) / CLOCKS_PER_SEC));
                 }
-                // newBoard.printPos();
-                // cout << "First" << endl << endl;
                 q.push(newBoard);
             }
         }
@@ -100,22 +91,13 @@ float breath_first_Time_All_Solutions() {
         Board current = q.front();
         q.pop();
 
-        // current.printBoard();
-        // cout << "Before moving" << endl << endl;
-
         current.addQueen();
         int col = current.getQueensQuantity() -1;
         for (int i=0; i < 8; i++) {
             current.moveQueen(col, i, col);
-
-            // current.printBoard();
-            // cout << "After moving to " << i << " " << col << endl << endl;
         
             if(current.isAttacking(col) == 0) {
                 Board newBoard = current;
-                // newBoard.printBoard();
-                // newBoard.printPos();
-                // cout << "All" << endl << endl;
                 q.push(newBoard);
             }
         }
