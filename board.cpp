@@ -53,12 +53,11 @@ void Board::printBoard() const{
 
 int Board::calculateCost() const {
     int cost = 0;
-    for (int i = 0; i < queensQuantity; i++) {
-        for (int j = i + 1; j < queensQuantity; j++) {
-            if (posX[i] == posX[j] || posY[i] == posY[j] || abs(posX[i] - posX[j]) == abs(posY[i] - posY[j])) {
-
+    for (int i = 0; i < 7; i++) {
+        for (int j = i + 1; j < 8; j++) {
+            
+            if (i != j && posX[i] == posX[j] || posY[i] == posY[j] || abs(posX[i] - posX[j]) == abs(posY[i] - posY[j])) {
                 cost++;                                     
-
             }
         }
     }
