@@ -59,7 +59,7 @@ void Board::writeOnFile(fstream& out){
                 out << ",";
             }
         }
-        out << "]";
+        out << "]}";
     }
 }
 

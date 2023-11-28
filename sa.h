@@ -5,7 +5,6 @@ using namespace std;
 
 class Sa{
 public:
-    
     Sa(double initialTemperature, double coolingRate);
     void mainSaFullRandom(Board board, Board auxBoard);
     void mainSaOptimized(Board board, Board auxBoard);
