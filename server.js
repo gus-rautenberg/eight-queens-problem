@@ -24,18 +24,17 @@ app.get('/run', (req, res) => {
         // Adicionar um temporizador de 1 segundo antes de continuar
         setTimeout(() => {
             // Verificar se o arquivo JSON foi gerado
-            if (fs.existsSync('output.json')) {
-                try {
-                    const queensResult = require('./output.json');
-                    res.json(queensResult);
-                    fs.unlinkSync('output.json');
-                } catch (error) {
-                    console.error('Erro ao ler o arquivo output.json:', error);
-                    return res.status(500).json({ error: 'Erro ao ler o arquivo output.json', details: error.message });
-                }
-            } else {
-                console.error('O arquivo output.json não foi gerado');
-                return res.status(500).json({ error: 'O arquivo output.json não foi gerado' });
+            delete require.cache[require.resolve('./output.json')];
+
+            try {
+                let data = fs.readFileSync('output.json', 'utf8');
+                let jsonData = JSON.parse(data);
+                console.log(jsonData);
+                res.json(jsonData);
+                fs.unlinkSync('output.json');
+            } catch (error) {
+                console.error('Erro ao ler o arquivo output.json:', error);
+                return res.status(500).json({ error: 'Erro ao ler o arquivo output.json', details: error.message });
             }
         }, 6000); // 1000 milissegundos = 1 segundo
     } catch (error) {
@@ -57,20 +56,19 @@ app.get('/runSA', (req, res) => {
         // Adicionar um temporizador de 1 segundo antes de continuar
         setTimeout(() => {
             // Verificar se o arquivo JSON foi gerado
-            if (fs.existsSync('output.json')) {
-                try {
-                    const queensResult = require('./output.json');
-                    res.json(queensResult);
-                    fs.unlinkSync('output.json');
-                } catch (error) {
-                    console.error('Erro ao ler o arquivo output.json:', error);
-                    return res.status(500).json({ error: 'Erro ao ler o arquivo output.json', details: error.message });
-                }
-            } else {
-                console.error('O arquivo output.json não foi gerado');
-                return res.status(500).json({ error: 'O arquivo output.json não foi gerado' });
+            delete require.cache[require.resolve('./output.json')];
+
+            try {
+                let data = fs.readFileSync('output.json', 'utf8');
+                let jsonData = JSON.parse(data);
+                console.log(jsonData);
+                res.json(jsonData);
+                fs.unlinkSync('output.json');
+            } catch (error) {
+                console.error('Erro ao ler o arquivo output.json:', error);
+                return res.status(500).json({ error: 'Erro ao ler o arquivo output.json', details: error.message });
             }
-        }, 6000); // 1000 milissegundos = 1 segundo
+        }, 1); // 1000 milissegundos = 1 segundo // 1000 milissegundos = 1 segundo
     } catch (error) {
         console.error(`Erro na execução: ${error}`);
         return res.status(500).json({ error: 'Erro na execução do programa em C++', details: error.message });
