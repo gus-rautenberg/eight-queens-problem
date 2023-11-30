@@ -11,11 +11,9 @@ public:
     void drawNeighbor(Board& auxBoard);
     void swapBoard(Board& auxBoard, int neighborX,int  newNeighborX, int newNeighborY);
 
-    // variaveis
-    int temperature; // = 4000;
-    double cooling;   // = 0.99;
+    int temperature;
+    double cooling;
 private:
-    
 };
 
 #endif 

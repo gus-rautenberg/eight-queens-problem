@@ -11,24 +11,17 @@
 #include <fstream>
 
 using namespace std;
-//Sa::Sa(){}
 Sa::Sa(double initialTemperature, double coolingRate) : temperature(initialTemperature), cooling(coolingRate) {}
-
 
 void Sa::swapBoard(Board& auxBoard, int neighborX,int  newNeighborX, int newNeighborY){
     vector<int> vectorX = auxBoard.getVectorX();
     vector<int> vectorY = auxBoard.getVectorY();
-    // cout << "Antes da troca" << endl;
-    // auxBoard.printBoard();
 
     vectorX[neighborX] = newNeighborX;
     vectorY[neighborX] = newNeighborY;
     auxBoard.setVectorX(vectorX);
     auxBoard.setVectorY(vectorY);
-    // cout << "Depois da troca" << endl;
-    // auxBoard.printBoard();
 }
-
 
 void Sa::drawNeighbor(Board& auxBoard){
     vector<int> vectorX = auxBoard.getVectorX();
@@ -44,7 +37,6 @@ void Sa::drawNeighbor(Board& auxBoard){
     swapBoard(auxBoard, neighbor, newPositionX, newPositionY);
 }
 
-
 void Sa::mainSaFullRandom(Board board, Board auxBoard){
     int counter = 1;
     double delta;
@@ -55,8 +47,8 @@ void Sa::mainSaFullRandom(Board board, Board auxBoard){
     int boardCost = board.calculateCost();
     int testBoardCost, testBestCost;
     fstream out, time;
-    out << "{ ";
     out.open("output.json", ios::out);
+    out << "{ ";
     board.writeOnFile(out, counter++);
     for(int k = 0; k < 1000; k++){
         t *= cooling;
@@ -103,8 +95,8 @@ void Sa::mainSaOptimized(Board board, Board auxBoard){
     int testBoardCost, testBestCost;
     double t = temperature;
     fstream out;
-    out << "{ ";
     out.open("output.json", ios::out);
+    out << "{ ";
     board.writeOnFile(out, counter++);
     for(int k = 0; k < 1; k++){    
         t *= cooling;
@@ -138,4 +130,3 @@ void Sa::mainSaOptimized(Board board, Board auxBoard){
     out << "}";
     out.close();
 }
-

@@ -39,21 +39,26 @@
     </style>
 </head>
 <body>
-    <button onclick="runQueens()">Compilar e Executar</button>
-    <div id="chessboard"></div>
+    <button onclick="runQueens()">Compilar e Executar Breadth</button>
+    <button onclick="runQueensSA()">Compilar e Executar SA</button>
+    <div id="chessboard-container"></div>
     <h1 id="iteration"></h1>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            createChessboard();
-        });
+         document.addEventListener('DOMContentLoaded', createChessboard);
 
         function createChessboard() {
-            const chessboard = document.getElementById('chessboard');
-            chessboard.matrix = []; // Matriz para representar o tabuleiro
+            const container = document.getElementById('chessboard-container');
+            container.innerHTML = '';
+
+            const chessboard = document.createElement('div');
+            chessboard.id = 'chessboard';
+            container.appendChild(chessboard);
+
+            chessboard.matrix = [];
 
             for (let row = 0; row < 8; row++) {
-                chessboard.matrix[row] = []; // Cada linha é um array
+                chessboard.matrix[row] = [];
                 for (let col = 0; col < 8; col++) {
                     const square = document.createElement('div');
                     square.className = 'square';
@@ -61,7 +66,6 @@
                     square.textContent = '';
                     chessboard.appendChild(square);
 
-                    // Preencher a matriz
                     chessboard.matrix[row][col] = square;
                 }
             }
@@ -78,23 +82,30 @@
                     console.error('Erro na execução:', error);
                 });
         }
+        function runQueensSA() {
+            fetch('/runSA')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Queens result:', data);
+                    updateChessboard(data);
+                })
+                .catch(error => {
+                    console.error('Erro na execução:', error);
+                });
+        }
 
         function updateChessboard(queensResult) {
             const chessboard = document.getElementById('chessboard');
             const iterationElement = document.getElementById('iteration');
-            // Certifique-se de que queensResult seja um array
-            const queensArray = Object.values(queensResult);
+            let queensArray = Object.values(queensResult);
 
             queensArray.forEach((queen, index) => {
-                // Certifique-se de que há posições para a rainha
                 if (queen.length > 0) {
-                    // Agendar a atualização do tabuleiro com atraso
                     setTimeout(() => {
-                        clearChessboard(chessboard); // Limpar o tabuleiro antes de cada iteração
+                        clearChessboard(chessboard);
                         
                         queen.forEach((position) => {
                             const { x, y } = position;
-                            // Verificar se as coordenadas estão dentro dos limites
                             if (x >= 0 && x < 8 && y >= 0 && y < 8) {
                                 const square = chessboard.matrix[x][y];
                                 square.textContent = `Q`;
@@ -106,9 +117,9 @@
                         if (index !== queensArray.length - 1) {
                             setTimeout(() => {
                                 clearChessboard(chessboard);
-                            }, 230); 
+                            }, 3); 
                         }
-                    }, index * 250); 
+                    }, index * 5); 
                 }
             });
         }
@@ -120,6 +131,18 @@
                     square.textContent = '';
                 }
             }
+        }
+
+        function fetchData(url) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Queens result:', data);
+                    updateChessboard(data);
+                })
+                .catch(error => {
+                    console.error('Erro na execução:', error);
+                });
         }
     </script>
 </body>

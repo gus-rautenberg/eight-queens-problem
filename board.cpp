@@ -6,14 +6,10 @@
 #include <cstdlib>
 #include <algorithm>
 #include <fstream>
-// #include<iostream> 
-// #include <nlohmann/json.hpp>
-
-
+l
 #include <unordered_set>
 
 using namespace std;
-// using json = nlohmann::json; 
 
 Board::Board() {
     size = 8; // Tamanho padrão do xadrez
@@ -77,8 +73,6 @@ int Board::calculateCost() const {
     return cost;
 }
 
-
-
 void Board::initialRandomBoard() {
 
     posX.resize(size, 0);
@@ -122,14 +116,10 @@ void Board::initialRandomBoardOptimized() {
     }
 }
 
-
-
-// Função para obter o vetor posX
 vector<int> Board::getVectorX() const{
     return posX;
 }
 
-// Função para obter o vetor posY
 vector<int> Board::getVectorY() const{
     return posY;
 }
@@ -142,16 +132,13 @@ void Board::setVectorX(const vector<int>& newVectorX) {
     posX = newVectorX;
 }
 
-// Função para definir o vetor posY
 void Board::setVectorY(const vector<int>& newVectorY) {
     posY = newVectorY;
 }
 
 void Board::copyBoard(const Board &source) {
-    // Copia o tamanho do tabuleiro
     size = source.size;
 
-    // Copia as posições X e Y das rainhas diretamente usando =
     posX = source.posX;
     posY = source.posY;
     queensQuantity = source.queensQuantity;
@@ -169,7 +156,6 @@ void Board::randomMove() {
     int randomQueen = rand() % size;
     int randomPositionX = rand() % size;
     int randomPositionY = rand() % size;
-
     
     while (!isPositionFree(randomPositionX, randomPositionY)) {
         randomPositionX = rand() % size;
@@ -180,7 +166,6 @@ void Board::randomMove() {
 }
 
 bool Board::isPositionFree(int x, int y) const {
-    // Verifica se a posição está livre
     for (int i = 0; i < size; i++) {
         if (posX[i] == x && posY[i] == y) {
             return false;
@@ -197,7 +182,6 @@ void Board::moveQueen(int queenIndex, int newPositionX, int newPositionY) {
 int Board::getQueensQuantity() {
    return queensQuantity; 
 }
-
 
 void Board::addQueen() {
    queensQuantity += 1;
@@ -220,11 +204,9 @@ int Board::isAttacking(int newestQueen){
     int count=0;
     for (int j = newestQueen-1; j >= 0; j--) {
         if (posX[newestQueen] == posX[j] || posY[newestQueen] == posY[j] || abs(posX[newestQueen] - posX[j]) == abs(posY[newestQueen] - posY[j])){
-            // cout << "true" << endl << endl;
             count++;
         }
     }
 
-    // cout << "false" << endl << endl;
     return count;
 }
