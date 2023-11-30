@@ -11,24 +11,17 @@
 #include <fstream>
 
 using namespace std;
-//Sa::Sa(){}
 Sa::Sa(double initialTemperature, double coolingRate) : temperature(initialTemperature), cooling(coolingRate) {}
-
 
 void Sa::swapBoard(Board& auxBoard, int neighborX,int  newNeighborX, int newNeighborY){
     vector<int> vectorX = auxBoard.getVectorX();
     vector<int> vectorY = auxBoard.getVectorY();
-    // cout << "Antes da troca" << endl;
-    // auxBoard.printBoard();
 
     vectorX[neighborX] = newNeighborX;
     vectorY[neighborX] = newNeighborY;
     auxBoard.setVectorX(vectorX);
     auxBoard.setVectorY(vectorY);
-    // cout << "Depois da troca" << endl;
-    // auxBoard.printBoard();
 }
-
 
 void Sa::drawNeighbor(Board& auxBoard){
     vector<int> vectorX = auxBoard.getVectorX();
@@ -43,7 +36,6 @@ void Sa::drawNeighbor(Board& auxBoard){
     }while(!auxBoard.isPositionFree(newPositionX, newPositionY));
     swapBoard(auxBoard, neighbor, newPositionX, newPositionY);
 }
-
 
 void Sa::mainSaFullRandom(Board board, Board auxBoard){
     int counter = 1;
