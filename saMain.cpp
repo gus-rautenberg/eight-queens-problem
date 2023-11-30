@@ -64,7 +64,6 @@ case 'o':
     count = ((float)(((finish - start) + 0.0) / CLOCKS_PER_SEC));
     out.open("saOptimized.out", ios::app);
     break;
-
 }
 
     out << count << endl;
