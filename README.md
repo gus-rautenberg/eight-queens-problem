@@ -11,7 +11,7 @@ git clone https://github.com/gus-rautenberg/eight-queens-problem.git
 #### Via Linux terminal or WSL terminal
 ### Installation of the Node packages
 ```
-cd eight-queens-simulated-annealing
+cd eight-queens-problem
 npm install
 ```
 
@@ -33,7 +33,7 @@ git clone https://github.com/gus-rautenberg/eight-queens-problem.git
 #### Via terminal do Linux ou terminal do WSL
 ### Instalação dos pacotes do Node
 ```
-cd eight-queens-simulated-annealing
+cd eight-queens-problem
 npm install
 ```
 
