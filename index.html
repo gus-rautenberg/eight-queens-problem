@@ -9,6 +9,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+
             height: 100vh;
             margin: 0;
         }
@@ -36,11 +38,32 @@
             background-color: #444;
             color: #fff;
         }
+
+        button {
+            width: 300px;
+            padding: 12px;
+            font-size: 16px;
+            margin: 2px;
+        }
+        
+        #buttons {
+            margin-bottom: 4px;
+            display: flex;
+            flex-direction: row;
+        }
+
+        @media (max-width: 614px) {
+        #buttons {
+            flex-direction: column; /* Change the flex direction to column on smaller screens */
+        }
+    }
     </style>
 </head>
 <body>
-    <button onclick="runQueens()">Compilar e Executar Breadth</button>
-    <button onclick="runQueensSA()">Compilar e Executar SA</button>
+    <div id="buttons">
+        <button id="button1" onclick="runQueens()">Compilar e Executar Breadth</button>
+        <button id="button2" onclick="runQueensSA()">Compilar e Executar SA</button>
+    </div>
     <div id="chessboard"></div>
     <h1 id="iteration"></h1>
 
@@ -69,17 +92,20 @@
         }
 
         function runQueens() {
+            document.getElementById('buttons').style.display = 'none';
             fetch('/run')
-                .then(response => response.json())
-                .then(data => {
+            .then(response => response.json())
+            .then(data => {
                     console.log('Queens result:', data);
                     updateChessboard(data);
                 })
                 .catch(error => {
                     console.error('Erro na execução:', error);
+                    document.getElementById('buttons').style.display = 'flex';
                 });
         }
         function runQueensSA() {
+            document.getElementById('buttons').style.display = 'none';
             fetch('/runSA')
                 .then(response => response.json())
                 .then(data => {
@@ -88,6 +114,7 @@
                 })
                 .catch(error => {
                     console.error('Erro na execução:', error);
+                    document.getElementById('buttons').style.display = 'flex';
                 });
         }
 
@@ -122,9 +149,9 @@
                         }
                     }, index * 5); 
                 }
+                document.getElementById('buttons').style.display = 'flex';
             });
             delete queensResult;
-            
         }
 
         function clearChessboard(chessboard) {
