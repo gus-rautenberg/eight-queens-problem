@@ -19,8 +19,9 @@ npm install
 ```
 node server.js
 ```
+#### On terminal the program will show instructions of how to open the frontend
 
-# Problema as oito rainhas
+# Problema das oito rainhas
 
 Este repositório se dedica a resolução do problema das oito rainhas através dos métodos de busca Breadth First e Simulated Annealing. O projeto é o resultado de um trabalho para a classe de Inteligencia Artificial, pela professora Sra A. Postal
 
@@ -41,3 +42,4 @@ npm install
 ```
 node server.js
 ```
+#### No terminal o programa mostrará instruções de como abrir o frontend
