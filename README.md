@@ -37,7 +37,7 @@ cd eight-queens-problem
 npm install
 ```
 
-### Rodar
+### Executar
 ```
 node server.js
 ```
