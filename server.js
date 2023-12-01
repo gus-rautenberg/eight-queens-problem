@@ -20,7 +20,6 @@ app.get('/run', (req, res) => {
             try {
                 let data = fs.readFileSync('output.json', 'utf8');
                 let jsonData = JSON.parse(data);
-                console.log(jsonData);
                 res.json(jsonData);
                 fs.unlinkSync('output.json');
             } catch (error) {
@@ -48,7 +47,6 @@ app.get('/runSA', (req, res) => {
             try {
                 let data = fs.readFileSync('output.json', 'utf8');
                 let jsonData = JSON.parse(data);
-                console.log(jsonData);
                 res.json(jsonData);
                 fs.unlinkSync('output.json');
             } catch (error) {
