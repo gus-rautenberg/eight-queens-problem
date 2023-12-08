@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include <algorithm>
 #include <fstream>
-l
+
 #include <unordered_set>
 
 using namespace std;

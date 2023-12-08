@@ -9,6 +9,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+
             height: 100vh;
             margin: 0;
         }
@@ -36,29 +38,46 @@
             background-color: #444;
             color: #fff;
         }
+
+        button {
+            width: 300px;
+            padding: 12px;
+            font-size: 16px;
+            margin: 2px;
+        }
+        
+        #buttons {
+            margin-bottom: 4px;
+            display: flex;
+            flex-direction: row;
+        }
+
+        @media (max-width: 614px) {
+        #buttons {
+            flex-direction: column; /* Change the flex direction to column on smaller screens */
+        }
+    }
     </style>
 </head>
 <body>
-    <button onclick="runQueens()">Compilar e Executar Breadth</button>
-    <button onclick="runQueensSA()">Compilar e Executar SA</button>
-    <div id="chessboard-container"></div>
+    <div id="buttons">
+        <button id="button1" onclick="runQueens()">Compilar e Executar Breadth</button>
+        <button id="button2" onclick="runQueensSA()">Compilar e Executar SA</button>
+    </div>
+    <div id="chessboard"></div>
     <h1 id="iteration"></h1>
 
     <script>
-         document.addEventListener('DOMContentLoaded', createChessboard);
+        document.addEventListener('DOMContentLoaded', function () {
+            createChessboard();
+        });
 
         function createChessboard() {
-            const container = document.getElementById('chessboard-container');
-            container.innerHTML = '';
-
-            const chessboard = document.createElement('div');
-            chessboard.id = 'chessboard';
-            container.appendChild(chessboard);
-
-            chessboard.matrix = [];
+            const chessboard = document.getElementById('chessboard');
+            chessboard.matrix = []; // Matriz para representar o tabuleiro
 
             for (let row = 0; row < 8; row++) {
-                chessboard.matrix[row] = [];
+                chessboard.matrix[row] = []; // Cada linha é um array
                 for (let col = 0; col < 8; col++) {
                     const square = document.createElement('div');
                     square.className = 'square';
@@ -66,23 +85,27 @@
                     square.textContent = '';
                     chessboard.appendChild(square);
 
+                    // Preencher a matriz
                     chessboard.matrix[row][col] = square;
                 }
             }
         }
 
         function runQueens() {
+            document.getElementById('buttons').style.display = 'none';
             fetch('/run')
-                .then(response => response.json())
-                .then(data => {
+            .then(response => response.json())
+            .then(data => {
                     console.log('Queens result:', data);
                     updateChessboard(data);
                 })
                 .catch(error => {
                     console.error('Erro na execução:', error);
+                    document.getElementById('buttons').style.display = 'flex';
                 });
         }
         function runQueensSA() {
+            document.getElementById('buttons').style.display = 'none';
             fetch('/runSA')
                 .then(response => response.json())
                 .then(data => {
@@ -91,21 +114,26 @@
                 })
                 .catch(error => {
                     console.error('Erro na execução:', error);
+                    document.getElementById('buttons').style.display = 'flex';
                 });
         }
 
         function updateChessboard(queensResult) {
             const chessboard = document.getElementById('chessboard');
             const iterationElement = document.getElementById('iteration');
+            // Certifique-se de que queensResult seja um array
             let queensArray = Object.values(queensResult);
 
             queensArray.forEach((queen, index) => {
+                // Certifique-se de que há posições para a rainha
                 if (queen.length > 0) {
+                    // Agendar a atualização do tabuleiro com atraso
                     setTimeout(() => {
-                        clearChessboard(chessboard);
+                        clearChessboard(chessboard); // Limpar o tabuleiro antes de cada iteração
                         
                         queen.forEach((position) => {
                             const { x, y } = position;
+                            // Verificar se as coordenadas estão dentro dos limites
                             if (x >= 0 && x < 8 && y >= 0 && y < 8) {
                                 const square = chessboard.matrix[x][y];
                                 square.textContent = `Q`;
@@ -121,7 +149,9 @@
                         }
                     }, index * 5); 
                 }
+                document.getElementById('buttons').style.display = 'flex';
             });
+            delete queensResult;
         }
 
         function clearChessboard(chessboard) {
@@ -131,18 +161,6 @@
                     square.textContent = '';
                 }
             }
-        }
-
-        function fetchData(url) {
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Queens result:', data);
-                    updateChessboard(data);
-                })
-                .catch(error => {
-                    console.error('Erro na execução:', error);
-                });
         }
     </script>
 </body>
